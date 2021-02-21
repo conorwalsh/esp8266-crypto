@@ -268,8 +268,8 @@ void loop() {
           // Store the API payload in a string
           String payload = https.getString();
           // Calculate the price, change and percentage change
-          float price = payload.substring(payload.indexOf("price")+8,payload.indexOf("volume")-3).toFloat();;
-          float change = payload.substring(payload.indexOf("change")+9,payload.indexOf("timestamp")-4).toFloat();;
+          float price = payload.substring(payload.indexOf("price")+8,payload.indexOf("volume")-3).toFloat();
+          float change = payload.substring(payload.indexOf("change")+9,payload.indexOf("timestamp")-4).toFloat();
           float changePercent = change/price*100;
           // Print payload to serial
           Serial.println(cryptos[currentCoin].coin);
