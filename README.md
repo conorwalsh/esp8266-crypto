@@ -1,5 +1,5 @@
 # ESP8266 Crypto
-ESP8266 project to display cryptocurrency prices on an OLED
+ESP8266 project to display cryptocurrency prices on an OLED (Adafruit SSD1306)
 
 ![Demo GIF](/images/gif_demo.gif?raw=true "Demo GIF")
 
