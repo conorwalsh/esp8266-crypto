@@ -365,7 +365,7 @@ void printChange(float change) {
     display.print(F("+"));
   }
   // If the change is less than 10 use a decimal point if not dont
-  if(change<10){
+  if(abs(change)<10){
     display.print(change,1);
   }
   else{
