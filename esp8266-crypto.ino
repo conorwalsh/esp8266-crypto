@@ -16,6 +16,9 @@
 
 /**** Setup ****/
 
+// Uncomment the next line if you are using an ESP-01
+// #define ESP01
+
 // WIFI Network name and password
 #define WIFI_SSID "YOUR_NETWORK"
 #define WIFI_PASS "YOUR_PASSWORD"
@@ -210,6 +213,11 @@ const int maxCoins = sizeof(cryptos)/sizeof(cryptos[0]);
 void setup() {
 
   Serial.begin(115200);
+
+  #ifdef ESP01
+    // I2C for ESP-01 is different
+    Wire.begin(2, 0);
+  #endif
 
   // Try to start display if it doesnt work halt program and inform user
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)){
