@@ -5,6 +5,8 @@ ESP8266 project to display cryptocurrency prices on an OLED (Adafruit SSD1306)
 
 The code is fully commented and it should be easy to add/remove coins as desired.
 
+[![repo_build](https://github.com/conorwalsh/esp8266-crypto/actions/workflows/repo_build.yaml/badge.svg)](https://github.com/conorwalsh/esp8266-crypto/actions/workflows/repo_build.yaml)
+
 ## Demo Images
 ![BTC Demo](/images/btc_demo.jpg?raw=true "BTC Demo")
 ![Stellar Demo](/images/xlm_demo.jpg?raw=true "Stellar Demo")
