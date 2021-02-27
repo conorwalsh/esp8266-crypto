@@ -330,7 +330,7 @@ const int maxAssets = sizeof(assets)/sizeof(assets[0]);
 void setup() {
 
   Serial.begin(115200);
-  
+
   #ifdef ESP01
     // I2C for ESP-01 is different
     Wire.begin(2, 0);
