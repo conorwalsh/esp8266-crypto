@@ -322,9 +322,9 @@ const unsigned char notstonks [] PROGMEM = {
   0x00, 0x00, 0x07, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0f, 0xc0, 0x00
 };
 
-// Varible to store what coin should be displayed
+// Variable to store what asset should be displayed
 int currentAsset = 0;
-// Const to store how many coins are configured
+// Const to store how many assets are configured
 const int maxAssets = sizeof(assets)/sizeof(assets[0]);
 
 void setup() {
@@ -336,7 +336,7 @@ void setup() {
     Wire.begin(2, 0);
   #endif
 
-  // Try to start display if it doesnt work halt program and inform user
+  // Try to start display if that doesn't work halt program and inform user
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)){
     Serial.println(F("HALT: OLED allocation failed"));
     while(1);
@@ -377,7 +377,7 @@ void loop() {
     // Set the correct fingerprint
     uint8_t fingerprint[20];
     if(assets[currentAsset].isCrypto)
-      // In C a memcpoy needs to be used to copy an array cant be directly assigned
+      // In C a memcopy needs to be used as an array can't be directly assigned to another array
       memcpy(fingerprint, fingerprint_crypto, 20);
     else
       memcpy(fingerprint, fingerprint_stock, 20);
@@ -509,7 +509,7 @@ void printPrice(float price){
 // Print the price change percentage to the OLED
 void printChange(float change) {
   display.setCursor(display.width()-STONKS_WIDTH, display.height()/4);
-  // Manually print a + for postive changes
+  // Manually print a + for positive changes
   if(change>=0){
     display.print(F("+"));
   }
