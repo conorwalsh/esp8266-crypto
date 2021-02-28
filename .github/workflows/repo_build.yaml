@@ -4,40 +4,28 @@ name: repo_build
 # Here we tell GitHub to run the workflow when a commit
 # is pushed or a Pull Request is opened.
 on: [push, pull_request]
-
-# This is the list of jobs that will be run concurrently.
-# Since we use a build matrix, the actual number of jobs
-# started depends on how many configurations the matrix
-# will produce.
 jobs:
-  # This is the name of the job - can be whatever.
-  test-matrix:
+  # Perform ESP builds
+  esp-builds:
 
-    # Here we tell GitHub that the jobs must be determined
-    # dynamically depending on a matrix configuration.
+    # Matrix of build configs
     strategy:
       matrix:
-        # The matrix will produce one job for each configuration
-        # parameter of type `arduino-platform`, in this case a
-        # total of 2.
+        # Specify Platform
         arduino-platform: ["esp8266:esp8266"]
-        # This is usually optional but we need to statically define the
-        # FQBN of the boards we want to test for each platform. In the
-        # future the CLI might automatically detect and download the core
-        # needed to compile against a certain FQBN, at that point the
-        # following `include` section will be useless.
+        # Define the boards being tested
         include:
+          # Generic ESP board
           - board: ESP8266
             arduino-platform: esp8266:esp8266
             fqbn: esp8266:esp8266:generic
 
-    # This is the platform GitHub will use to run our workflow, we
-    # pick Windows for no particular reason.
+    # Run the ESP builds on Windows
     runs-on: windows-latest
 
-    # This is the list of steps this job will run.
+    # Steps for the ESP builds
     steps:
-      # First of all, we clone the repo using the `checkout` action.
+      # Clone the repo using the `checkout` action.
       - name: Checkout
         uses: actions/checkout@master
 
@@ -59,3 +47,19 @@ jobs:
       # in the build matrix.
       - name: Compile Sketch
         run: arduino-cli compile --fqbn ${{ matrix.fqbn }} ./esp8266-crypto
+
+  # Run codespell
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # See: https://github.com/codespell-project/actions-codespell/blob/master/README.md
+      - name: Spell check
+        uses: codespell-project/actions-codespell@master
+        with:
+          check_filenames: true
+          check_hidden: true
+          # In the event of a false positive, add the word in all lower case to this file:
+          ignore_words_file: .github/workflows/codespell-ignore-words-list.txt
